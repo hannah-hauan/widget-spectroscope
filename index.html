@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,29 +7,232 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <section class="gems">
+        <h2>Gems</h2>
+   
     <div class="gem-container">
     <div class="gem" tabindex="0" role="button" aria-label="Ruby" data-spectrum="ruby-spectrum">
-      <img src="/images/rubyCut.png" alt="Ruby gemstone">
+        <h3>Our Gem</h3>
+        <img src="/images/ruby2.png" alt="Mystery gemstone">
+    </div>
+    <div class="gem" tabindex="0" role="button" aria-label="Ruby" data-spectrum="ruby-spectrum">
+        <h3>Ruby</h3>
+        <img src="/images/rubyCut.png" alt="Ruby gemstone">
     </div>
     <div class="gem" tabindex="0" role="button" aria-label="Red Spinel" data-spectrum="spinel-spectrum">
-      <img src="/images/spinelCut.png" alt="Red Spinel gemstone">
+        <h3>Red Spinel</h3>
+        <img src="/images/spinelCut.png" alt="Red Spinel gemstone">
   </div>
-  
-  <div class="spectroscope" id="spectroscope" role="img" aria-label="Spectroscope tool" tabindex="0">
+   </section>
+  <div class="spectroscope" tabindex="0" aria-label="Draggable spectroscope" id="spectroscope" role="img" aria-label="Spectroscope tool" tabindex="0">
     <div class="lens"></div>
   </div>
-  
-  <div class="spectra-display">
-    <div class="spectrum">
-      <h3>Our Gem</h3>
-      <img src="our-gem-spectrum.jpg" alt="Absorption spectrum of our gem">
-    </div>
-    <div class="spectrum" id="comparison-spectrum">
-      <h3>Comparison Gem</h3>
-      <img src="" alt="Absorption spectrum of selected gem">
-    </div>
+
+  <section class="spectra">
+    <h2>Spectra Display</h2>
+    <div class="spectra-display">
+        <div class="spectrum">
+        <h3>Our Gem</h3>
+        <img src="our-gem-spectrum.jpg" alt="Absorption spectrum of our gem">
+        </div>
+        <div class="spectrum" id="comparison-spectrum">
+        <h3>Comparison Gem</h3>
+        <img src="" alt="Absorption spectrum of selected gem">
+        </div>
   </div>
-  
+  </section>
   <script src="/spectroscope.js"></script>
 </body>
 </html>
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <title>Gem Spectra Display</title>
+ <style>
+   body {
+     font-family: Arial, sans-serif;
+   }
+ 
+   #gameContainer {
+     position: relative;
+     width: 750px;
+     height: 300px;
+     border: 1px solid #ccc;
+     background-color: #f8f8f8;
+     padding: 10px;
+   }
+ 
+   .gems-row {
+     display: flex;
+     justify-content: space-around;
+     align-items: flex-start;
+   }
+ 
+   .gem {
+     text-align: center;
+   }
+ 
+   .gem img {
+     width: 80px;
+     height: 80px;
+     border-radius: 50%;
+     border: 4px solid white;
+     object-fit: cover;
+   }
+ 
+   #magnifier {
+     position: absolute;
+     width: 80px;
+     height: 80px;
+     border: 3px solid black;
+     border-radius: 50%;
+     cursor: grab;
+     background-color: transparent;
+   }
+ 
+   .spectra-display {
+     display: flex;
+     justify-content: space-between;
+     margin-top: 10px;
+     width: 750px;
+     border: 1px solid #ccc;
+     background-color: #fff;
+     padding: 10px;
+   }
+ 
+   .spectra {
+     text-align: center;
+     width: 45%;
+   }
+ 
+   .spectra img {
+     width: 100%;
+     height: auto;
+   }
+ </style>
+ </head>
+ <body>
+ 
+ <h2>Gems</h2>
+ <div id="gameContainer">
+   <div class="gems-row">
+     <div class="gem">
+       <b>Our Gem</b><br>
+       <img src="/images/ruby2.png" alt="Our Gem" 
+            data-spectrum="/images/ruby2.png">
+     </div>
+     <div class="gem">
+       <b>Ruby</b><br>
+       <img id="rubyGem" src="/images/rubyCut.png" alt="Ruby" 
+            data-spectrum="/images/rubyCut.png">
+     </div>
+     <div class="gem">
+       <b>Red Spinel</b><br>
+       <img id="spinelGem" src="/images/spinelCut.png" alt="Red Spinel" 
+            data-spectrum="/images/spinelCut.png">
+     </div>
+   </div>
+   <div id="magnifier" tabindex="0" aria-label="Draggable magnifier"></div>
+ </div>
+ 
+ <h2>Spectra Display</h2>
+ <div class="spectra-display">
+   <div class="spectra">
+     <b>Our Gem Spectrum</b><br>
+     <img src="/images/our_gem_spectrum_placeholder.png" alt="Absorption spectrum of our gem">
+   </div>
+   <div class="spectra">
+     <b>Comparison Gem</b><br>
+     <img id="comparisonSpectrum" src="/images/placeholder_spectrum.png" 
+          alt="Absorption spectrum of selected gem">
+   </div>
+ </div>
+ 
+ <script>
+   const magnifier = document.getElementById('magnifier');
+   const comparisonSpectrum = document.getElementById('comparisonSpectrum');
+   const rubyGem = document.getElementById('rubyGem');
+   const spinelGem = document.getElementById('spinelGem');
+   const gems = [rubyGem, spinelGem];
+ 
+   let isDragging = false;
+   let offsetX = 0, offsetY = 0;
+ 
+   // Mouse Drag
+   magnifier.addEventListener('mousedown', function (e) {
+     isDragging = true;
+     const rect = magnifier.getBoundingClientRect();
+     offsetX = e.clientX - rect.left;
+     offsetY = e.clientY - rect.top;
+     magnifier.style.cursor = "grabbing";
+   });
+ 
+   document.addEventListener('mousemove', function (e) {
+     if (isDragging) {
+       moveMagnifier(e.clientX, e.clientY);
+       checkGemCollision();
+     }
+   });
+ 
+   document.addEventListener('mouseup', function () {
+     isDragging = false;
+     magnifier.style.cursor = "grab";
+   });
+ 
+   // Keyboard Controls
+   magnifier.addEventListener('keydown', function (e) {
+     const step = 10;
+     const rect = magnifier.getBoundingClientRect();
+     let x = rect.left;
+     let y = rect.top;
+ 
+     if (e.key === 'ArrowUp') {
+       y -= step;
+     } else if (e.key === 'ArrowDown') {
+       y += step;
+     } else if (e.key === 'ArrowLeft') {
+       x -= step;
+     } else if (e.key === 'ArrowRight') {
+       x += step;
+     }
+ 
+     moveMagnifier(x + offsetX, y + offsetY);
+     checkGemCollision();
+     e.preventDefault();
+   });
+ 
+   function moveMagnifier(clientX, clientY) {
+     const containerRect = document.getElementById('gameContainer').getBoundingClientRect();
+     magnifier.style.left = (clientX - containerRect.left - offsetX) + 'px';
+     magnifier.style.top = (clientY - containerRect.top - offsetY) + 'px';
+   }
+ 
+   function checkGemCollision() {
+     const magRect = magnifier.getBoundingClientRect();
+     let matched = false;
+ 
+     gems.forEach(gem => {
+       const gemRect = gem.getBoundingClientRect();
+       if (
+         magRect.left < gemRect.right &&
+         magRect.right > gemRect.left &&
+         magRect.top < gemRect.bottom &&
+         magRect.bottom > gemRect.top
+       ) {
+         comparisonSpectrum.src = gem.dataset.spectrum;
+         matched = true;
+       }
+     });
+ 
+     if (!matched) {
+       comparisonSpectrum.src = "/images/placeholder_spectrum.png";
+     }
+   }
+ </script>
+ 
+ </body>
+ </html>
+ 
