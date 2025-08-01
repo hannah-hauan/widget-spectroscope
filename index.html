@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="gem-container">
+    <div class="gem" tabindex="0" role="button" aria-label="Ruby" data-spectrum="ruby-spectrum">
+      <img src="/images/rubyCut.png" alt="Ruby gemstone">
+    </div>
+    <div class="gem" tabindex="0" role="button" aria-label="Red Spinel" data-spectrum="spinel-spectrum">
+      <img src="/images/spinelCut.png" alt="Red Spinel gemstone">
+  </div>
+  
+  <div class="spectroscope" id="spectroscope" role="img" aria-label="Spectroscope tool" tabindex="0">
+    <div class="lens"></div>
+  </div>
+  
+  <div class="spectra-display">
+    <div class="spectrum">
+      <h3>Our Gem</h3>
+      <img src="our-gem-spectrum.jpg" alt="Absorption spectrum of our gem">
+    </div>
+    <div class="spectrum" id="comparison-spectrum">
+      <h3>Comparison Gem</h3>
+      <img src="" alt="Absorption spectrum of selected gem">
+    </div>
+  </div>
+  
+  <script src="/spectroscope.js"></script>
+</body>
+</html>
