@@ -18,8 +18,6 @@
      position: relative;
      width: 550px;
      height: 100px;
-     /* border: 1px solid #5c3c6b; */
-     background-color: #ffffff;
      padding: 10px;
    
    }
@@ -39,7 +37,6 @@
      width: 80px;
      height: 80px;
      border-radius: 50%;
-     border: 4px solid white;
      object-fit: cover;
    }
  
@@ -52,13 +49,16 @@
      border: 3px solid black;
      border-radius: 50%;
      cursor: grab;
-     background-color: transparent;
-   }
+     background: #161616;
+     background: radial-gradient(circle,rgba(27, 186, 217, 0.143) 30%, rgba(255, 255, 255, 1) 100%);
+     backdrop-filter: blur(1px);
+    }
+
+
  
    .spectra-display {
      margin-top: 10px;
      width: 550px;
-     background-color: #fff;
      padding: 10px;
       display: flex;
       flex-direction: column;
@@ -87,10 +87,22 @@
   p {
     margin: 0;
   }
+
+  #gem-area{
+    padding: 1em;
+    background-color: #ffffff;
+  }
+
+  #spectra-area {
+    padding: 1em;
+    background-color: #ffffff;
+    border-top: 2px solid #161616;
+  }
+
  </style>
  </head>
  <body>
- 
+ <section id="gem-area">
  <h2>Gems</h2>
  <div id="gameContainer">
    <div class="gems-row">
@@ -100,19 +112,22 @@
             data-spectrum="images/spectrum_placeholder.png">
      </div>
      <div class="gem">
+      <p>Red Spinel</p>
+      <img id="spinelGem" src="images/spinelCut.png" alt="Red Spinel" 
+           data-spectrum="images/spectrum_redSpinel.png">
+     </div>
+     <div class="gem">
        <p>Ruby</p>
        <img id="rubyGem" src="images/rubyCut.png" alt="Ruby" 
             data-spectrum="images/spectrum_ruby.png">
      </div>
-     <div class="gem">
-       <p>Red Spinel</p>
-       <img id="spinelGem" src="images/spinelCut.png" alt="Red Spinel" 
-            data-spectrum="images/spectrum_redSpinel.png">
-     </div>
+   
    </div>
    <div id="magnifier" tabindex="0"></div>
  </div>
- 
+ </section>
+
+ <section id="spectra-area">
  <h2>Spectra Display</h2>
  <div class="spectra-display">
    <div class="spectra">
@@ -125,6 +140,7 @@
           alt="Absorption spectrum of selected gem">
    </div>
  </div>
+</section>
  
  <script>
    const magnifier = document.getElementById('magnifier');
